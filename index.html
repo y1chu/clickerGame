@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clicker Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="updateUpgradeButtons()">
+<h1>Clicker Game</h1>
+<div id="clickable-object" onclick="incrementScore()">
+  Click me!
+</div>
+<p>
+  Score: <span id="score">0</span>
+</p>
+<p>
+  Points per click: <span id="points-per-click">1</span>
+</p>
+<button id="upgrade-button" onclick="buyClickUpgrade()">Upgrade Click (cost: 10)</button>
+<br>
+<button id="passive-income-button" onclick="buyPassiveIncomeUpgrade()">Passive Income (cost: 25)</button>
+<p>
+  Passive income rate: <span id="passive-income-rate">0</span> points/second
+</p>
+<script src="script.js"></script>
+</body>
+</html>
