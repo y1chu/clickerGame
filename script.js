@@ -4,6 +4,13 @@ let clickUpgradeCount = 0;
 let passiveIncomeRate = 0;
 let passiveIncomeUpgradeCount = 0;
 
+let clickBoostCount = 0;
+let passiveIncomeBoostCount = 0;
+const clickBoostDuration = 10000; // 10 seconds in milliseconds
+const passiveIncomeBoostDuration = 10000; // 10 seconds in milliseconds
+let clickBoostActive = false;
+let passiveIncomeBoostActive = false;
+
 function incrementScore() {
   score += pointsPerClick;
   updateScoreDisplay();
@@ -74,6 +81,72 @@ function updateUpgradeButtons() {
 function generatePassiveIncome() {
   score += passiveIncomeRate;
   updateScoreDisplay();
+}
+
+function buyClickBoost() {
+  const cost = 50;
+  if (score >= cost) {
+    score -= cost;
+    clickBoostCount += 1;
+    updateScoreDisplay();
+    updateClickBoostCountDisplay();
+  } else {
+    alert("Not enough points to buy the click boost!");
+  }
+}
+
+function activateClickBoost() {
+  if (clickBoostCount > 0 && !clickBoostActive) {
+    clickBoostCount -= 1;
+    clickBoostActive = true;
+    pointsPerClick *= 2;
+    updatePointsPerClickDisplay();
+    updateClickBoostCountDisplay();
+
+    setTimeout(() => {
+      clickBoostActive = false;
+      pointsPerClick /= 2;
+      updatePointsPerClickDisplay();
+      }, clickBoostDuration);
+  }
+}
+
+function updateClickBoostCountDisplay() {
+  const clickBoostCountDisplay = document.getElementById("click-boost-count");
+  clickBoostCountDisplay.innerText = clickBoostCount;
+}
+
+function buyPassiveIncomeBoost() {
+  const cost = 100;
+  if (score >= cost) {
+    score -= cost;
+    passiveIncomeBoostCount += 1;
+    updateScoreDisplay();
+    updatePassiveIncomeBoostCountDisplay();
+  } else {
+    alert("Not enough points to buy the passive income boost!");
+  }
+}
+
+function activatePassiveIncomeBoost() {
+  if (passiveIncomeBoostCount > 0 && !passiveIncomeBoostActive) {
+    passiveIncomeBoostCount -= 1;
+    passiveIncomeBoostActive = true;
+    passiveIncomeRate *= 2;
+    updatePassiveIncomeRateDisplay();
+    updatePassiveIncomeBoostCountDisplay();
+
+    setTimeout(() => {
+      passiveIncomeBoostActive = false;
+      passiveIncomeRate /= 2;
+      updatePassiveIncomeRateDisplay();
+    }, passiveIncomeBoostDuration);
+  }
+}
+
+function updatePassiveIncomeBoostCountDisplay() {
+  const passiveIncomeBoostCountDisplay = document.getElementById("passive-income-boost-count");
+  passiveIncomeBoostCountDisplay.innerText = passiveIncomeBoostCount;
 }
 
 // Call generatePassiveIncome() every second (1000 ms)
